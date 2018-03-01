@@ -52,6 +52,9 @@ div {
 </style>
 
 <body>
+	<audio id='alarm'>
+		<source src="alarm.mp3" type="audio/mpeg">
+	</audio>
 	<h1 id="timer">25:00</h1>
 	<button id="startBtn" class='disabled'>Start Break</button>
 	<div>
@@ -72,13 +75,14 @@ var timer = setInterval(function(){
 		}else{
 			document.getElementById("timer").innerHTML = Math.floor(timeLeft/60) + ":" + (timeLeft%60);
 		}
-		if(time/60 == currentTimer){
+		if(time/60 == Math.floor(currentTimer)){
 			document.getElementById("timer").setAttribute("class","disabled");
 			document.getElementById("startBtn").setAttribute("class","");
 			time = 0;
+			document.getElementById("alarm").play();
 			if(currentTimer == 5){
 				currentTimer = 25;
-				document.getElementById("startBtn").innerHTML = "Start New Pomodoro";
+				document.getElementById("startBtn").innerHTML = "Start Pomodoro";
 			}else{
 				currentTimer = 5;
 				document.getElementById("startBtn").innerHTML = "Start Break";
@@ -87,6 +91,8 @@ var timer = setInterval(function(){
 	}
 },1000);
 document.getElementById("startBtn").onclick = function(){
+	document.getElementById("alarm").pause();
+	document.getElementById("alarm").currentTime = 0;
 	document.getElementById("timer").setAttribute("class","");
 	document.getElementById("startBtn").setAttribute("class","disabled");
 }
