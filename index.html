@@ -31,6 +31,11 @@ button {
 button:hover{
 	border-color: black;
 }
+#startBtn {
+	height: 15vh;
+	box-sizing: border-box;
+	padding: 0 5vh;
+}
 #restartBtn {
 	font-size: 2rem;
 }
@@ -38,7 +43,7 @@ button:hover{
 
 <body>
 	<h1 id="timer">Start</h1>
-	<button id="startBtn">Start Break</button>
+	<button id="startBtn" class='disabled'>Start Break</button>
 	<button id="restartBtn">Restart Timer</button>
 </body>
 </html>
