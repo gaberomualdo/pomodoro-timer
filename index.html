@@ -36,6 +36,12 @@ button:hover{
 	height: 15vh;
 	box-sizing: border-box;
 	padding: 0 5vh;
+	margin-top: 32.5vh;
+	margin-bottom: 2.5vh;
+}
+div {
+	display: block;
+	clear: both;
 }
 #restartBtn {
 	font-size: 2rem;
@@ -46,14 +52,49 @@ button:hover{
 </style>
 
 <body>
-	<h1 id="timer">00:00</h1>
+	<h1 id="timer">25:00</h1>
 	<button id="startBtn" class='disabled'>Start Break</button>
-	<button id="restartBtn">Restart Timer</button>
+	<div>
+		<button id="restartBtn">Restart Cycle</button>
+	</div>
 </body>
 <script type="text/javascript">
 
 var time = 0;
+var currentTimer = 25;
 
+var timer = setInterval(function(){
+	if(document.getElementById("timer").getAttribute("class") != "disabled"){
+		time += 1;
+		const timeLeft = Math.floor((currentTimer * 60) - time);
+		if(timeLeft%60 < 10){
+			document.getElementById("timer").innerHTML = Math.floor(timeLeft/60) + ":0" + (timeLeft%60);
+		}else{
+			document.getElementById("timer").innerHTML = Math.floor(timeLeft/60) + ":" + (timeLeft%60);
+		}
+		if(time/60 == currentTimer){
+			document.getElementById("timer").setAttribute("class","disabled");
+			document.getElementById("startBtn").setAttribute("class","");
+			time = 0;
+			if(currentTimer == 5){
+				currentTimer = 25;
+				document.getElementById("startBtn").innerHTML = "Start New Pomodoro";
+			}else{
+				currentTimer = 5;
+				document.getElementById("startBtn").innerHTML = "Start Break";
+			}
+		}
+	}
+},1000);
+document.getElementById("startBtn").onclick = function(){
+	document.getElementById("timer").setAttribute("class","");
+	document.getElementById("startBtn").setAttribute("class","disabled");
+}
+document.getElementById("restartBtn").onclick = function(){
+	document.getElementById("timer").innerHTML = "25:00";
+	currentTimer = 25.02;
+	time = 0;
+}
 
 </script>
 </html>
